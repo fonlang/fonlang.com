@@ -1,0 +1,10 @@
+<aside class="large-3 columns">
+    <h5>分类</h5>
+    <ul class="side-nav">
+        {% for i = 1, #categories do %}
+        <li>
+            <a href="{{ categories[i].uri }}">{{ categories[i].category }}({{ categories[i].count }})</a>
+        </li>
+        {% end %}
+    </ul>
+</aside>

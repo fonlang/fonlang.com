@@ -1,0 +1,10 @@
+*~
+*.swp
+*.swo
+*.tsv
+upload
+faq.html
+logs/
+templates/blog
+text/
+*_temp/

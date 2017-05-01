@@ -1,0 +1,13 @@
+<div class="columns">
+    <ul class="breadcrumbs">
+        {% for i = 1, #breadcrumbs do %}
+            {% if breadcrumbs[i]["uri"] ~= nil then %}
+        <li>
+            <a href="{{ breadcrumbs[i].uri }}">{{ breadcrumbs[i].category }}</a>
+        </li>
+            {% else %}
+        <li class="disabled">{{ breadcrumbs[i].category }}</li>
+            {% end %}
+        {% end %}
+    </ul>
+</div>
