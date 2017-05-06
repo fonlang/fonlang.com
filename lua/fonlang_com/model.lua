@@ -75,12 +75,13 @@ function _M.get_blog_by_uri(uri)
         .. "where uri = '" .. uri .. "'"
     )
 
-    -- print ("JSON: ", cjson.encode(res))
     if #res == 0 then
         ngx.log(ngx.ERR, "no blog found: uri=" .. uri)
         return ''
     end
 
+    -- print ("JSON: ", cjson.encode(res))
+    
     return res[1]
 end
 
@@ -93,22 +94,42 @@ function _M.list_latest_created_blogs()
         .. "order by created desc limit 10"
     )
 
-    -- print ("JSON: ", cjson.encode(res))
     if #res == 0 then
         ngx.log(ngx.ERR, "no blog found")
         return ngx.exit(500)
     end
 
+    -- print ("JSON: ", cjson.encode(res))
+   
     return res
 end
 
+-- 获取全部博客
+function _M.list_all_blogs()
+    local res = query_db(
+        "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
+        .. "to_char(modified, 'dd Mon yyyy') as modified, "
+        .. "html_file, summary_text from blogs b "
+        .. "order by b.created desc "
+    )
+
+    if #res == 0 then
+        ngx.log(ngx.ERR, "no blogs found")
+        return ngx.exit(500)
+    end
+
+    -- print ("JSON: ", cjson.encode(res))
+
+    return res
+end
 -- 获取指定分类下的博客
 function _M.list_blogs_by_category_uri(uri)
     local res = query_db(
         "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
         .. "to_char(modified, 'dd Mon yyyy') as modified, "
         .. "html_file, summary_text from blogs b, category c "
-        .. "where c.uri = '" .. uri .. "' and b.category = c.category"
+        .. "where c.uri = '" .. uri .. "' and b.category = c.category "
+        .. "order by b.created desc "
     )
 
     if #res == 0 then
@@ -116,6 +137,8 @@ function _M.list_blogs_by_category_uri(uri)
         return ngx.exit(500)
     end
 
+    -- print ("JSON: ", cjson.encode(res))
+   
     return res
 end
 
@@ -135,7 +158,7 @@ function _M.list_all_categroies()
     end
 
     local categories = {
-        { category = "全部文章", uri = "", count = 0 },
+        { category = "全部文章", uri = "/blog/category/", count = 0 },
     }
 
     for _, v in ipairs(res) do
