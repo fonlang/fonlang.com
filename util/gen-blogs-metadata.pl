@@ -98,7 +98,7 @@ sub parse_file {
         }
     }
 
-    if ($file =~ /templates\/blog\/\d+\/\d+\/(\S+)\.html/) {
+    if ($file =~ /templates\/blog\/\d+\/\d+\/([\w-]+)\.html/) {
         $attr{uri} = "/blog/$1"; 
     } else {
         die "invalid blog file";
