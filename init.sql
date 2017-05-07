@@ -27,6 +27,7 @@ create table category (
 );
 
 insert into category (category, uri) values 
+    ('30天', '/blog/category/30days'),
     ('开发手册', '/blog/category/developer'),
     ('抗癌日志', '/blog/category/cancer'),
     ('有趣的事', '/blog/category/fun'),
