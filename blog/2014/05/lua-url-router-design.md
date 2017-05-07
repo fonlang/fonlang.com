@@ -156,3 +156,4 @@ router:execute('POST', /app/4/comments', { comment = 'fascinating' })
 ## 更多
 
 * [Hacker News - A small router for Openresty](https://news.ycombinator.com/item?id=7647595)
+* [Talk like a Googler: parts of a url](https://www.mattcutts.com/blog/seo-glossary-url-definitions/)
