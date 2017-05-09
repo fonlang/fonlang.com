@@ -1,26 +1,23 @@
-<!doctype html>
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{title}}</title>
-        <link rel="stylesheet" href="/css/foundation.css" />
-        <link rel="stylesheet" href="/css/style.css" />
-        <link rel="stylesheet" href="/css/github-markdown.css" />
-        <style type="text/css">
-.markdown-body h2 {
-  border-bottom: none;
-}
-        </style>
-    </head>
-    <body>
-        {(header.html)}
-        {*view*}
-        {(footer.html)}
-        <script src="/js/vendor/jquery.min.js"></script>
-        <script src="/js/foundation.min.js"></script>
-        <script>
-$(document).foundation();
-        </script>
-    </body>
+{( _partial/head.html )}
+<body>
+    {( _partial/loading.html )}
+    <script>setLoadingBarProgress(20)</script>
+    {( _partial/header.html )}
+    <script>setLoadingBarProgress(40)</script>
+    <div class="l_body">
+        <div class="container clearfix">
+            <div class="l_main">
+                {* blocks.main *}
+            </div>
+            <aside class="l_side">
+                {( _partial/side.html )}
+            </aside>
+            <script>setLoadingBarProgress(60)</script>
+        </div>
+    </div>
+    {( _partial/footer.html )}
+    <script>setLoadingBarProgress(80)</script>
+    {( _partial/scripts.html )}
+    <script>setLoadingBarProgress(100)</script>
+</body>
 </html>

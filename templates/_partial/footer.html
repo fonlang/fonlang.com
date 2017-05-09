@@ -1,0 +1,15 @@
+<footer id="footer" class="clearfix">
+    <div class="social-wrapper">
+        {% 
+        for i = 1, #theme.social do
+            local s = theme.social[i]
+        %}
+        <a href="{{ s.url }}" class="social {{ s.slug }}" target="_blank" rel="external">
+            <span class="icon icon-{{ s.slug }}"></span>
+        </a>
+        {% end %}
+    </div>
+
+    <div> Theme <a href="#" class="codename">MaterialFlow</a> designed by <a href="#">Kevin Tan</a>.</div>
+</footer>
+

@@ -1,0 +1,14 @@
+<section class="m_widget categories">
+    <div class="header">Categories</div>
+    <div class="content">
+        {% 
+        if #categories > 0 then 
+        %}
+        <ul class="entry">
+            {% for _, c in ipairs(categories) do %}
+            <li><a class="flat-box" href="{{ c.url }}"><div class="name">{{ c.name }}</div><div class="badget">{{ c.number }}</div></a></li>
+            {% end %}
+        </ul>
+        {% end %}
+    </div>
+</section>

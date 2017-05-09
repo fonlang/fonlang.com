@@ -2,6 +2,7 @@ local _M = {}
 
 local view = require "fonlang_com.view"
 local model = require "fonlang_com.model"
+local theme = require "fonlang_com.config"
 local inspect = require "inspect"
 local cjson = require "cjson"
 
@@ -32,7 +33,11 @@ function _M.blog_home(params)
     local blogs = model.list_latest_created_blogs()
     local categories = model.list_all_categroies()
 
-    local v = view.new("blog-home.html", "layout.html")
+    for _, post in blogs do
+        post['categories'] = categories
+    end
+
+    local v = view.new("index.html")
     v.title = "Fong | 与癌症斗争着的编码者"
     v.blogs = blogs
     v.categories = categories
@@ -41,6 +46,15 @@ function _M.blog_home(params)
         { category = "博客", uri = "/blog/" },
         { category = "全部文章" }
     }
+    v.page = {
+        total = 10,
+        prev = 1,
+        prev_link = "/",
+        next = 1,
+        next_link = "/",
+        posts = blogs
+    }
+    v.theme = theme
     v:render()
 end
 

@@ -69,10 +69,10 @@ end
 -- 获取指定blog的meta数据
 function _M.get_blog_by_uri(uri)
     local res = query_db(
-        "select uri, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
+        "select url, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
         .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs "
-        .. "where uri = '" .. uri .. "'"
+        .. "html_file, summary_text from posts "
+        .. "where url = '" .. uri .. "'"
     )
 
     if #res == 0 then
@@ -88,9 +88,9 @@ end
 -- 获取最近发布的blog列表
 function _M.list_latest_created_blogs()
     local res = query_db(
-        "select uri, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
+        "select url, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
         .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs "
+        .. "html_file, summary_text from posts "
         .. "order by created desc limit 10"
     )
 
@@ -107,9 +107,9 @@ end
 -- 获取全部博客
 function _M.list_all_blogs()
     local res = query_db(
-        "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
+        "select b.url, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
         .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs b "
+        .. "html_file, summary_text from posts b "
         .. "order by b.created desc "
     )
 
@@ -125,10 +125,10 @@ end
 -- 获取指定分类下的博客
 function _M.list_blogs_by_category_uri(uri)
     local res = query_db(
-        "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
+        "select b.url, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
         .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs b, category c "
-        .. "where c.uri = '" .. uri .. "' and b.category = c.category "
+        .. "html_file, summary_text from posts b, category c "
+        .. "where c.url = '" .. uri .. "' and b.category = c.name "
         .. "order by b.created desc "
     )
 
@@ -145,9 +145,9 @@ end
 -- 获取所有的分类
 function _M.list_all_categroies()
     local res = query_db(
-        "select c.category, c.uri, count(1) count from blogs b, category c "
-        .. "where b.category = c.category "
-        .. "group by c.category, c.uri"
+        "select c.name, c.url, count(1) count from posts b, category c "
+        .. "where b.category = c.name "
+        .. "group by c.name, c.url"
     )
 
     -- print ("JSON: ", inspect(res));
