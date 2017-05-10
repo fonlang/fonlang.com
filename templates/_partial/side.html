@@ -1,7 +1,7 @@
 {%
 for i = 1, #theme.widgets do
     local name = theme.widgets[i]
-    local widget_html = "../_widget/" .. name .. ".html"
+    local widget_html = "/_widget/" .. name .. ".html"
 %}
-{( widget_html )}
+{[ widget_html ]}
 {% end %}

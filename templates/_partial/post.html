@@ -9,7 +9,7 @@
             {{ post.created }}
         </time>
 
-        {( categories.html, post )}
+        {( _partial/categories.html, { post = post } )}
     </section>
     <section class="article typo">
         {{ post.summary_text }}

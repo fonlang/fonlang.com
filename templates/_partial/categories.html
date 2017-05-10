@@ -1,5 +1,13 @@
-{% if post.categories and #post.categories > 0 then %}
-    {%
+{% 
+if post.categories and #post.categories > 0 then 
     local cats = {}
-    for _, item in post.categories do
-        
+    for i, c in ipairs(post.categories) do
+        cats[i] = c['name']
+    end
+
+    local str_cats = table.concat(cats, ", ") 
+%}
+<div class="cats">
+    <!-- {{ str_cats }} -->
+</div>
+{% end %}

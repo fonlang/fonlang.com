@@ -28,16 +28,16 @@ local _M = {
     -- navigation menu
     menu = {
         { name = "Home", slug = "home", url = "/blog/" },
-        { name = "Archives", slug = "archives", url = "/blog/archives" },
+        { name = "Archives", slug = "archives", url = "/blog/archive/" },
         { name = "About", slug = "about", url = "/blog/about" },
     },
 
     -- widgets
     widgets = {
-        "about",
-        "links",
+        -- "about",
+        -- "links",
         "categories",
-        "tagcloud"
+        -- "tagcloud"
     },
 
     -- social

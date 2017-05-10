@@ -8,7 +8,7 @@ create table posts (
     id serial primary key,
     url varchar(128) unique not null,
     title text not null,
-    category text not null,
+    category_name text not null,
     html_file text not null,
     summary_text text not null,
     creator varchar(32) not null,
@@ -27,11 +27,11 @@ create table category (
 );
 
 insert into category (name, url) values 
-    ('30天', '/blog/category/30days'),
-    ('开发手册', '/blog/category/developer'),
-    ('抗癌日志', '/blog/category/cancer'),
-    ('有趣的事', '/blog/category/fun'),
-    ('随笔', '/blog/category/notes'),
-    ('待办事项', '/blog/category/todo');
+    ('30天', '/blog/category/30days/'),
+    ('开发手册', '/blog/category/developer/'),
+    ('抗癌日志', '/blog/category/cancer/'),
+    ('有趣的事', '/blog/category/fun/'),
+    ('随笔', '/blog/category/notes/'),
+    ('待办事项', '/blog/category/todo/');
 
-\copy posts (url, title, category, html_file, summary_text, creator, created, modifier, modified, changes) from 'posts.tsv'
+\copy posts (url, title, category_name, html_file, summary_text, creator, created, modifier, modified, changes) from 'posts.tsv'
