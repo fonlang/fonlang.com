@@ -109,19 +109,36 @@
         }
     }
     pre {
+        padding: 16px;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+        background-color: #f6f8fa;
+        border-radius: 3px;
         display: block;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         font-family: @code-font-family;
+        word-wrap: normal;
+        &>code {
+            padding: 0;
+            margin: 0;
+            word-break: normal;
+            white-space: pre;
+            background: transparent;
+            border: 0;
+        }
     }
     code {
         font-family: @code-font-family;
+        font-size: 85%;
         color: @secondary-color;
-        padding: 3px 5px;
-        margin: 0px 2px;
-        border-radius: 2px;
-        font-size: 1em;
-        background: lighten(@background-color, 5%);
+        padding: 0;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        margin: 0;
+        border-radius: 3px;
+        background: rgba(27,31,35,0.05);
     }
     .readmore {
         // display: none; // howtodesign?
@@ -267,7 +284,7 @@
   .code{
       vertical-align: top;
   }
-  &::-webkit-scrollbar { 
+  &::-webkit-scrollbar {
     height: 6px;
     width: 6px;
   }
