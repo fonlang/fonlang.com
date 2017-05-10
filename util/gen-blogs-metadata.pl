@@ -19,7 +19,7 @@ my $n = handle_dir($dirname, \@rows);
 
 print "$n html files handled into \@rows.\n";
 
-my $outfile = "blogs.tsv";
+my $outfile = "posts.tsv";
 $n = dump_rows(\@rows, $outfile);
 print "$n rows dumped to $outfile.\n";
 $hs->eof;

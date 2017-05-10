@@ -2,6 +2,7 @@ local _M = {}
 
 local view = require "fonlang_com.view"
 local model = require "fonlang_com.model"
+local theme = require "fonlang_com.config"
 local inspect = require "inspect"
 local cjson = require "cjson"
 
@@ -9,60 +10,42 @@ local ngx_var = ngx.var
 local resp_header = ngx.header
 
 
-local function get_category_uri(category, categories) 
-    for _, v in ipairs(categories) do 
-        if v["category"] == category then
-            -- print (v["category"] .. " ==> " .. category .. " ==> " .. v["uri"])
-            return v["uri"]
-        end
-    end
-
-    return ''
-end
-
-
--- /
 function _M.index(params)
     resp_header["Cache-Control"] = "max-age=3600"
     return ngx.redirect("/blog/", 302)
 end
 
--- m{/blog/?}
-function _M.blog_home(params)
-    local blogs = model.list_latest_created_blogs()
+function _M.blog(params)
+    local posts = model.list_latest_created_posts()
     local categories = model.list_all_categroies()
 
-    local v = view.new("blog-home.html", "layout.html")
+    local v = view.new("blog.html")
     v.title = "Fong | 与癌症斗争着的编码者"
-    v.blogs = blogs
     v.categories = categories
-    v.breadcrumbs = { 
-        { category = "首页", uri = "/blog/" },
-        { category = "博客", uri = "/blog/" },
-        { category = "全部文章" }
+    v.theme = theme
+    v.page = {
+        total = 10,
+        prev = 1,
+        prev_link = "/blog/",
+        next = 1,
+        next_link = "/blog/",
+        posts = posts
     }
     v:render()
 end
 
--- m{/blog/:blog_entry}
-function _M.blog_entry(params) 
+function _M.blog_article(params) 
     local uri = ngx_var.uri
 
-    local blog = model.get_blog_by_uri(uri)
-    if blog then
+    local post = model.get_post_by_url(uri)
+    if post then
         local categories = model.list_all_categroies()
-        local category_uri = get_category_uri(blog["category"], categories)
 
-        local v = view.new("blog-entry.html", "layout.html")
-        v.title = "Fong | " .. blog['title']
-        v.blog = blog
+        local v = view.new("blog-article.html")
+        v.title = "Fong | " .. post['title']
         v.categories = categories
-        v.breadcrumbs = { 
-            { category = "首页", uri = "/blog/" },
-            { category = "博客", uri = "/blog/" },
-            { category = blog["category"], uri = category_uri },
-            { category = blog["title"] }
-        }
+        v.theme = theme
+        v.post = post
         v:render()
         return
     else
@@ -70,37 +53,49 @@ function _M.blog_entry(params)
     end
 end
 
--- m{/blog/category/:category}
-function _M.blog_list_by_category(params)
+function _M.blog_category(params)
     local uri = ngx_var.uri
 
-    local blogs = {}
     if not params.category then
-        blogs = model.list_all_blogs()
-    else
-        blogs = model.list_blogs_by_category_uri(uri)
+        ngx.exit(404)
     end
-
+    
+    local posts = model.list_posts_by_category_url(uri)
     local categories = model.list_all_categroies()
 
-    local v = view.new("blog-home.html", "layout.html")
-    v.title = "Fong | " .. blogs[1]["category"] .. "分类"
-    v.blogs = blogs
+    local v = view.new("blog-category.html")
+    v.title = "Fong | 与癌症斗争着的编码者"
     v.categories = categories
-    
-    if not params.category then
-        v.breadcrumbs = { 
-            { category = "首页", uri = "/blog/" },
-            { category = "博客", uri = "/blog/" },
-        }
-    else
-        v.breadcrumbs = { 
-            { category = "首页", uri = "/blog/" },
-            { category = "博客", uri = "/blog/" },
-            { category = blogs[1]["category"]}
-        }
-    end
+    v.theme = theme
+    v.page = {
+        total = 10,
+        prev = 1,
+        prev_link = "/blog/",
+        next = 1,
+        next_link = "/blog/",
+        posts = posts
+    }
+    v:render()
+end
 
+function _M.blog_archive(params)
+    local uri = ngx_var.uri
+
+    local archive = model.list_all_archive()
+    local categories = model.list_all_categroies()
+
+    local v = view.new("blog-archive.html")
+    v.title = "Fong | 与癌症斗争着的编码者"
+    v.categories = categories
+    v.theme = theme
+    v.page = {
+        totle = 10,
+        prev = 1,
+        prev_link = "/blog/archive/",
+        next = 1,
+        prev_link = "/blog/archive/",
+        archive = archive
+    }
     v:render()
 end
 

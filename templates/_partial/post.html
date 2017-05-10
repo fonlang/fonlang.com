@@ -1,0 +1,28 @@
+<article class="post reveal{{ post.title }}">
+    <section class="meta">
+        <h2 class="title">
+            <a href="{{ post.url }}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <time>
+            {{ post.created }}
+        </time>
+
+        {( _partial/categories.html, { post = post } )}
+    </section>
+    <section class="article typo">
+        {{ post.summary_text }}
+        <div class="readmore">
+            <a href="{{ post.url }}">Read More</a>
+        </div>
+
+        {% if post.tags and #post.tags > 0 then %}
+        <div class="full-width auto-padding tags">
+            {% for _, t in pairs(post.tags) do %}
+            <a href="{{ t.url }}">{{ t.name }}</a>
+            {% end %}
+        </div>
+        {% end %}
+    </section>
+</article>

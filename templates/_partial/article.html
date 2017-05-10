@@ -1,0 +1,32 @@
+<article id="article-{{ post.url }}"
+    class="post white-box article-type-layout"
+    itemscope itemprop="blogPost">
+        <section class="meta">
+            <h2 class="title">
+                <a href="{{ post.url }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <time>
+                {{ post.created }}
+            </time>
+            {( _partial/categories.html, { post = post } )}
+        </section>
+
+        {% if post.toc ~= nil then %}
+        <section class="toc-wrapper"></section>
+        {% end %}
+        
+        <section class="article typo">
+            <div class="article-entry" itemprop="articleBody">
+                {[ post.html_file ]}
+            </div>
+            {% if post.tags and #post.tags > 0 then %}
+            <div class="article-tags tags">
+                {% for _, item in ipairs(post.tags) do %}
+                <a href="{{ item.url }}">{{ item.name }}</a>
+                {% end %}
+            </div>
+            {% end %}
+        </section>
+</article>

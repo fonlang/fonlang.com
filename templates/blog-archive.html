@@ -1,0 +1,34 @@
+{% layout = "layout.html" %}
+{-main-}
+<article id="archive-page" class="post article white-box">
+    <section class="meta">
+        <h2 class="title">
+            <a href="javascript:void(0)">
+                Archives
+            </a>
+        </h2>
+    </section>
+    <section class="archive">
+        {%
+        local year = -1
+        for _, post in ipairs(page.archive) do
+            if post.year and post.year ~= year then
+                year = post.year
+        %}
+
+        <div class="archive-item archive-year mark">
+            <a id="archive-year-{{ year }}" href="/archives/{{ year }}/">
+                {{ year }}
+            </a>
+        </div>
+        {% end %}
+        <div class="archive-item archive-post mark">
+            <a href="{{ post.url }}">
+                <time>{{ post.monday }}</time>
+                <span class="title"><span>{{ post.title }}</span>
+            </a>
+        </div>
+        {% end %}
+    </section>
+</article>
+{-main-}

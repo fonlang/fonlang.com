@@ -1,0 +1,61 @@
+<header class="l_header">
+    <div class="wrapper">
+        <div class="nav-main container container--flex">
+            <a class="logo flat-box" href="/">
+                Fong's Blog
+            </a>
+            <div class="menu">
+                <ul class="h-list">
+                    {%  
+                    for i = 1, #theme.menu do
+                        local m = theme.menu[i]      
+                    %}
+                    <li>
+                        <a class="flat-box nav-{{ m.slug }}" href="{{ m.url }}">
+                            {{ m.name }}
+                        </a>
+                    </li>
+                    {% end %}
+                </ul>
+            </div>
+            {% if theme.search.enable then %}
+            <div class="m_search">
+                <form name="searchform" class="form u-search-form">
+                    <input type="text" class="input u-search-input" placeholder="Search" />
+                    <span class="icon icon-search"></span>
+                </form>
+            </div>
+            {% end %}
+            <ul class="switcher h-list">
+                {% if theme.search.enable then %}
+                <li class="s-search"><a href="javascript:void(0)"><span class="icon icon-search flat-box"></span></a></li>
+                {% end %}
+                <li class="s-menu"><a href="javascript:void(0)"><span class="icon icon-menu flat-box"></span></a></li>
+            </ul>
+        </div>
+
+        <div class="nav-sub container container--flex">
+            <a class="logo" class="flat-box" href="javascript:void(0)">
+                Word of Forks
+            </a>
+            
+            <ul class="switcher h-list">
+                <li class="s-comment"><a href="javascript:void(0)"><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+                <li class="s-top"><a href="javascript:void(0)"><span class="icon icon-arrow_upward flat-box"></span></a></li>
+                <li class="s-toc"><a href="javascript:void(0)"><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<aside class="menu-phone">
+    <nav>
+        {% 
+        for i = 1, #theme.menu do
+            local m = theme.menu[i]
+        %}
+        <a href="{{ m.url }}" class="nav-{{ m.slug }} nav">
+            {{ m.name }}
+        </a>
+        {% end %}
+    </nav>
+</aside>

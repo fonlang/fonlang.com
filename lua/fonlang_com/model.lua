@@ -63,20 +63,22 @@ local function query_db(query)
         ngx.log(ngx.ERR, "failed to keep alive: ", err)
     end
 
+    -- print(inspect(res))
+
     return res
 end
 
--- 获取指定blog的meta数据
-function _M.get_blog_by_uri(uri)
+-- 获取指定post的meta数据
+function _M.get_post_by_url(url)
     local res = query_db(
-        "select uri, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
-        .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs "
-        .. "where uri = '" .. uri .. "'"
+        "select b.url, title, category_name, c.url as category_url, modifier, html_file, summary_text, "
+        .. "to_char(created, 'yyyy-MM-dd') as created, to_char(modified, 'yyyy-MM-dd') as modified "
+        .. "from posts b, category c "
+        .. "where b.category_name = c.name  and b.url = '" .. url .. "'"
     )
 
     if #res == 0 then
-        ngx.log(ngx.ERR, "no blog found: uri=" .. uri)
+        ngx.log(ngx.ERR, "no post found: url=" .. url)
         return ''
     end
 
@@ -85,17 +87,18 @@ function _M.get_blog_by_uri(uri)
     return res[1]
 end
 
--- 获取最近发布的blog列表
-function _M.list_latest_created_blogs()
+-- 获取最近发布的post列表
+function _M.list_latest_created_posts()
     local res = query_db(
-        "select uri, title, category, modifier, to_char(created, 'dd Mon yyyy') as created, "
-        .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs "
+        "select b.url, title, category_name, c.url as category_url, modifier, html_file, summary_text, "
+        .. "to_char(created, 'yyyy-MM-dd') as created, to_char(modified, 'yyyy-MM-dd') as modified "
+        .. "from posts b, category c "
+        .. "where b.category_name = c.name "
         .. "order by created desc limit 10"
     )
 
     if #res == 0 then
-        ngx.log(ngx.ERR, "no blog found")
+        ngx.log(ngx.ERR, "no post found")
         return ngx.exit(500)
     end
 
@@ -105,16 +108,35 @@ function _M.list_latest_created_blogs()
 end
 
 -- 获取全部博客
-function _M.list_all_blogs()
+function _M.list_all_posts()
     local res = query_db(
-        "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
-        .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs b "
+        "select b.url, title, category_name, c.url as category_url, modifier, html_file, summary_text, "
+        .. "to_char(created, 'yyyy-MM-dd') as created, to_char(modified, 'yyyy-MM-dd') as modified "
+        .. "from posts b, category c "
+        .. "where b.category_name = c.name "
         .. "order by b.created desc "
     )
 
     if #res == 0 then
-        ngx.log(ngx.ERR, "no blogs found")
+        ngx.log(ngx.ERR, "no posts found")
+        return ngx.exit(500)
+    end
+
+    -- print ("JSON: ", cjson.encode(res))
+
+    return res
+end
+
+--  
+function _M.list_all_archive()
+    local res = query_db(
+        "select url, title, to_char(created, 'yyyy') as year, to_char(modified, 'MM-dd') as monday "
+        .. "from posts "
+        .. "order by created desc "
+    )
+
+    if #res == 0 then
+        ngx.log(ngx.ERR, "no archive found")
         return ngx.exit(500)
     end
 
@@ -123,17 +145,17 @@ function _M.list_all_blogs()
     return res
 end
 -- 获取指定分类下的博客
-function _M.list_blogs_by_category_uri(uri)
+function _M.list_posts_by_category_url(url)
     local res = query_db(
-        "select b.uri, title, b.category, modifier, to_char(created, 'dd Mon yyyy') as created, "
-        .. "to_char(modified, 'dd Mon yyyy') as modified, "
-        .. "html_file, summary_text from blogs b, category c "
-        .. "where c.uri = '" .. uri .. "' and b.category = c.category "
+        "select b.url, title, b.category_name, c.url as category_url, modifier, html_file, summary_text, "
+        .. "to_char(created, 'yyyy-MM-dd') as created, to_char(modified, 'yyyy-MM-dd') as modified "
+        .. "from posts b, category c "
+        .. "where c.url = '" .. url .. "' and b.category_name = c.name "
         .. "order by b.created desc "
     )
 
     if #res == 0 then
-        ngx.log(ngx.ERR, "no blogs found : category.uri=" .. uri)
+        ngx.log(ngx.ERR, "no posts found : category.url=" .. url)
         return ngx.exit(500)
     end
 
@@ -145,9 +167,9 @@ end
 -- 获取所有的分类
 function _M.list_all_categroies()
     local res = query_db(
-        "select c.category, c.uri, count(1) count from blogs b, category c "
-        .. "where b.category = c.category "
-        .. "group by c.category, c.uri"
+        "select c.name, c.url, count(1) number from posts b, category c "
+        .. "where b.category_name = c.name "
+        .. "group by c.name, c.url"
     )
 
     -- print ("JSON: ", inspect(res));
@@ -157,18 +179,7 @@ function _M.list_all_categroies()
         return ngx.exit(500)
     end
 
-    local categories = {
-        { category = "全部文章", uri = "/blog/category/", count = 0 },
-    }
-
-    for _, v in ipairs(res) do
-        table.insert(categories, v)
-        categories[1]["count"] = categories[1]["count"] + v["count"]
-    end
-
-    -- print ("JSON: ", inspect(categories));
-
-    return categories
+    return res 
 end
 
 

@@ -8,7 +8,7 @@ html_files := $(patsubst %.md, templates/%.html, $(md_files))
 
 gen_blogs_metadata_pl = ./util/gen-blogs-metadata.pl
 blog_md_filter_pl = ./util/blog-md-filter.pl
-tsv_files = blogs.tsv
+tsv_files = posts.tsv
 
 .PHONY: all
 all: html metadata
@@ -51,4 +51,4 @@ metadata:
 
 .PHONY: clean
 clean:
-	rm -rf templates/blog *.tsv
+	rm -rf templates/*.tsv
