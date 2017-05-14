@@ -34,7 +34,7 @@ function _M.blog(params)
     v:render()
 end
 
-function _M.blog_article(params) 
+function _M.blog_article(params)
     local uri = ngx_var.uri
 
     local post = model.get_post_by_url(uri)
@@ -59,7 +59,7 @@ function _M.blog_category(params)
     if not params.category then
         ngx.exit(404)
     end
-    
+
     local posts = model.list_posts_by_category_url(uri)
     local categories = model.list_all_categroies()
 

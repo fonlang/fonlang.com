@@ -113,6 +113,10 @@ function Router:resolve(method, path, ...)
 end
 
 function Router:execute(method, path, ...)
+  local pos = string.find(path, "?")
+  if pos ~= nil then
+    path = string.sub(path, 1, pos - 1)
+  end
   local f,params = self:resolve(method, path, ...)
   if not f then return nil, ('Could not resolve %s %s - %s'):format(tostring(method), tostring(path), tostring(params)) end
   return true, f(params)
