@@ -331,7 +331,11 @@ ul.h-list {
     position: relative;
     padding: 2 * @gap 0 @gap;
     @media(max-width: @on-phone) {
-        padding: @gap @gap/2 @gap/2;
+        padding: @gap/2 0 0;
+        max-width: 530px;
+        min-width: 280px;
+        width: 100%;
+        margin: 0 auto 0;
     }
 }
 

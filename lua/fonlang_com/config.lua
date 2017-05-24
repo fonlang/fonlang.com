@@ -27,9 +27,9 @@ local _M = {
 
     -- navigation menu
     menu = {
-        { name = "Home", slug = "home", url = "/blog/" },
-        { name = "Archives", slug = "archives", url = "/blog/archive/" },
-        { name = "About", slug = "about", url = "/blog/about" },
+        { name = "首页", slug = "home", url = "/blog/" },
+        { name = "归档", slug = "archives", url = "/blog/archive/" },
+        { name = "关于", slug = "about", url = "/blog/about" },
     },
 
     -- widgets
@@ -43,7 +43,6 @@ local _M = {
     -- social
     social = {
         { slug = "github", url = "https://github.com/fonlang" },
-        { slug = "sina", url = "http://fonglang.com" },
         { slug = "rss", url = "/atom.xml" }
     }
 }

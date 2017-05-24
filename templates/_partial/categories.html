@@ -1,13 +1,3 @@
-{% 
-if post.categories and #post.categories > 0 then 
-    local cats = {}
-    for i, c in ipairs(post.categories) do
-        cats[i] = c['name']
-    end
-
-    local str_cats = table.concat(cats, ", ") 
-%}
 <div class="cats">
-    <!-- {{ str_cats }} -->
+  <a href="{{ post.category_url}}">{{ post.category_name }}</a>
 </div>
-{% end %}
