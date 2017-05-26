@@ -34,7 +34,7 @@ local _M = {
 
     -- widgets
     widgets = {
-        -- "about",
+        "about",
         -- "links",
         "categories",
         -- "tagcloud"
