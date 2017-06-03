@@ -14,6 +14,17 @@ var AZURE_QUERY_KEY = "{{ theme.search.azure_query_key }}";
 var BAIDU_API_ID = "{{ theme.search.baidu_api_id }}";
 var SEARCH_SERVICE = "{{ theme.search.service }}";
 var ROOT = "/blog/";
+
+function goPage(page) {
+    var uri = window.location.href;
+    var re = new RegExp("([?&])page=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        window.location = uri.replace(re, '$1' + 'page=' + page + '$2')
+    } else {
+        window.location = uri + separator + "page=" + page;
+    }
+}
 </script>
 <script src="/js/search.js"></script>
 <script src="/js/app.js"></script>

@@ -5,11 +5,17 @@
     .post-list {
         position: relative;
         margin: 0px auto;
-        columns: 400px;
         column-gap: 0;
         margin: -@gap /2;
+        padding: @gap /2;
         @media(max-width: @on-phone) {
             margin: 0;
+        }
+        .heading {
+            display: block;
+            font-size: 24px;
+            line-height: 32px;
+            margin-bottom: 8px;
         }
     }
     #comments {
@@ -19,6 +25,9 @@
         @media (max-width: @on-phone) {
             padding-top: @gap;
         }
+    }
+    .post-wrapper+* {
+        border-top: 1px solid #e0e0e0;
     }
     .post-wrapper{
         // for firefox
@@ -55,7 +64,6 @@
         }
     }
     .post-wrapper {
-        padding: @gap /2;
         .mobile-post();
         .tags {
             margin-bottom: -1.5*@gap;
@@ -64,11 +72,47 @@
             padding-left: 0;
             padding-right: 0;
         }
+        .item {
+            display: block;
+            padding: 16px 0 16px 56px;
+            position: relative;
+            svg {
+                fill: #4285f4;
+                height: 34px;
+                left: 0;
+                position: absolute;
+                top: 16px;
+                width: 34px;
+                opacity: .5;
+                transition: .3s ease;
+            }
+            .title {
+                font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-weight: 500;
+                line-height: 1.1;
+                margin: 0;
+                font-size: 20px;
+            }
+            .snippet {
+                margin: 5px 0 0;
+                font-size: 14px;
+                color: #333;
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+            time {
+                margin: 5px 0 0;
+                color: #737373;
+                font-size: .75rem;
+            }
+        }
     }
     .post {
         position: relative;
         margin: 0 auto;
-        padding: 2 * @gap 1.5*@gap;
+        padding: 3*@gap;
         //max-width: 768px;
         background: white;
         &:extend(.z-depth-1);

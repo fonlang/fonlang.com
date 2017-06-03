@@ -3,7 +3,7 @@
     itemscope itemprop="blogPost">
         <section class="meta">
             <h2 class="title">
-                <a href="{{ post.url }}">
+                <a href="javascript:void(0);">
                     {{ post.title }}
                 </a>
             </h2>
@@ -16,7 +16,7 @@
         {% if post.toc ~= nil then %}
         <section class="toc-wrapper"></section>
         {% end %}
-        
+
         <section class="article typo">
             <div class="article-entry" itemprop="articleBody">
                 {[ post.html_file ]}

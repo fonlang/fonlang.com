@@ -1,40 +1,52 @@
 /* Pagination */
 
 #page-nav {
-	position: relative;
-	width: 100%;
-	padding: 20px 0px;
-	
-	.page-number,
-	.space {
-  	display: none;
-	}
-	.next,
-	.prev {
-		font-size: 0.8125em;
-		font-weight: normal;
-		color: lighten(@black, 40%);
-		border-radius: 2px;
-		
-		&:hover {
-			color: @black;
+	margin: 0;
+  zoom: 1;
+
+	ul {
+		display: block;
+		float: left;
+	  padding-left: 0;
+	  margin: 15px 0;
+		border: 0;
+		border-radius: 3px;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+
+		li {
+				display: inline
 		}
-		span {
-			line-height: 20px;
-			vertical-align: middle;
-			
-			&.icon {
+
+		li:first-child a {
+				border-top-left-radius: 2px;
+				border-bottom-left-radius: 2px;
+		}
+
+		li a {
 				position: relative;
-				top: 1px;
-			}
+				float: left;
+				padding: 6px 12px;
+				line-height: 1.42857143;
+				text-decoration: none;
+				color: @black;
+				background-color: #fff;
+				border: 1px solid #e8eaed;
+				font-size: 14px;
+				margin-left: -1px;
+
+				&:hover {
+				    background: #f2f5fd;
+				    color: #4a4e57;
+				    border-color: #e8eaed;
+				}
 		}
-	}
-	.next {
-  	float: right;
-  	padding: 0 7px 2px 10px;
-	}
-	.prev {
-  	float: left;
-  	padding: 0 10px 2px 7px;
+
+		li.active a {
+				cursor: default;
+				z-index: 1;
+				color: #fff;
+				border-color: @material-blue;
+				background: @material-blue;
+		}
 	}
 }

@@ -11,10 +11,21 @@
     window.subData= { title:'Category : {{ page.category }}'}
 </script>
 {% end %}
-<section class="post-list">
+<section class="post-list post white-box">
+    <div class="heading">
+    {% if helper:is_tag() then %}
+        符合标签过滤的结果：<b>{{ page.tag }}</b>
+    {% elseif helper:is_archive() then %}
+        符合以下归档条件的结果：<b>归档...</b>
+    {% elseif helper:is_category() then %}
+        符合以下分类过滤的结果：<b>{{ selected_category.name }}</b>
+    {% else %}
+        全部文章：
+    {% end %}
+    </div>
     {%
-    for i = 1, #page.posts do
-        local post = page.posts[i]
+    for i = 1, #page.list do
+      local post = page.list[i]
     %}
     <div class='post-wrapper'>
         {( _partial/post.html, { post = post } )}
@@ -22,19 +33,22 @@
     {% end %}
 </section>
 
-{% if page.total > 1 then %}
-    <nav id="page-nav">
-        {% if page.prev ~= 0 then %}
-        <a class="prev" rel="prev" href="{{ page.prev_link }}">
-            <span class="icon icon-chevron-left"></span>
-            <span class="text">前页</span>
-        </a>
-        {% end %}
-        {% if page.next ~= 0 then %}
-        <a class="next" rel="next" href="{{ page.next_link }}">
-            <span class="text">后页</span>
-            <span class="icon icon-chevron-right"></span>
-        </a>
-        {% end %}
-  </nav>
+{% if page.pages > 1 then %}
+<nav id="page-nav">
+  <ul>
+    {% if page.has_prev_page then %}
+    <li><a rel="prev" href="javascript:goPage({{ page.page_num - 1}});">« 前页</a></li>
+    {% end %}
+
+    {% for i = 1, #page.navigate_page_nums do
+        local n = page.navigate_page_nums[i]
+    %}
+    <li class="{{ n==page.page_num and 'active' }}"><a href="javascript:goPage({{ n }});">{{ n }}</a></li>
+    {% end %}
+
+    {% if page.has_next_page then %}
+    <li><a rel="next" href="javascript:goPage({{ page.page_num + 1}});">后页 »</a></li>
+    {% end %}
+  </ul>
+</nav>
 {% end %}

@@ -69,7 +69,7 @@ sub parse_file {
     my %attr;
     if ($html =~ s/ \A <!--- \s* (.*?) --> (?: \n | $ ) //xsm) {
         my $meta = $1;
-        %attr = map { if (/\@(\S+)\s+(\S+)/) { ($1, $2) } else { () } }
+        %attr = map { if (/\@(\S+)\s+(.*)/) { ($1, $2) } else { () } }
                         split /\n/, $meta;
     } else {
         die "$file: meta data not edit.\n";
@@ -99,7 +99,7 @@ sub parse_file {
     }
 
     if ($file =~ /templates\/blog\/\d+\/\d+\/([\w-]+)\.html/) {
-        $attr{uri} = "/blog/$1"; 
+        $attr{uri} = "/blog/$1";
     } else {
         die "invalid blog file";
         #$uri =~ s/(?<!^\/)/\//; # add prefix "/"

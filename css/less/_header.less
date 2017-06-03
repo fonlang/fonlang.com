@@ -1,8 +1,4 @@
 .l_header {
-	position:fixed;
-	z-index: 9999;
-	top:0;
-	left:0;
 	width:100%;
 	font-size: @header-font-size;
 	line-height: @header-height;
@@ -17,10 +13,10 @@
 	.nav--main,.nav-sub{
 		height: @header-height;
 	}
-	background: @primary-color;
+	background: @white;
 	padding: 0 @gap;
-	&, a{
-		color: @white;
+	&, a {
+		color: @black;
 	}
 	&:extend(.z-depth-1);
 	.logo {
@@ -28,19 +24,19 @@
 		padding: 0 0;
 		font-size: @header-logo-font-size;
 	}
-	.menu{
+	.menu {
 		position:relative;
 		flex: 1 0 auto;
 		height: @header-height;
 		.enable-trans();
 		margin:0 28px;
-		ul > li > a{
+		ul > li > a {
 			.enable-trans();
 			display: block;
-			color: fade(@white,70%);
+			color: fade(@black,70%);
 			padding: 0 @gap / 2;
 			&:hover,&.active{
-				color: @white;
+				color: @black;
 			}
 		}
 		@media(max-width: @on-phone){
@@ -102,6 +98,8 @@
 	line-height: @search-height;
 	vertical-align: middle;
 	.form {
+		border: 1px solid rgba(0,0,0,0);
+		border-radius: 3px;
 		position: relative;
 		display: block;
 		width: 100%;
@@ -117,6 +115,8 @@
 		line-height: @search-height;
 		top: 0;
 		left: @gap/2;
+		color: @search-input-color;
+		opacity: .54;
 	}
 	.input {
 		display:block;
@@ -124,29 +124,32 @@
 		line-height: @search-height - 10px;
 		margin: 0;
 		width: 100%;
-		color: @white;
+		background: rgba(0,0,0,0.04);
+		color: @search-input-color;
 		padding: 5px 10px 5px 40px;
 		height: @search-height;
 		line-height: @search-height;
 		font-family: @base-font-family;
 		border: none;
 		border-radius: 3px;
-		background:fade(@white,15%);
+		//background:fade(@black,15%);
 		box-sizing: border-box;
 		-webkit-appearance: none;
 		box-shadow: none;
-		&:hover{
-			background: fade(@white,35%);
-		}
+		/*&:hover{
+			background: fade(@black,35%);
+		}*/
 		&:focus {
-			color:@black;
-			background: @white;
-			.set-placeholder({color: @black});
-		}
-		&:focus ~ .icon{
+			border: 1px solid rgba(0,0,0,0.12);
+			background: rgba(255,255,255,1);
+			-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.24);
+			box-shadow: 0 1px 1px rgba(0,0,0,0.24);
 			color: @black;
 		}
-		.set-placeholder({color: @white});
+		&:focus ~ .icon {
+			color: @black;
+		}
+		.set-placeholder({color: @search-input-color; opacity: .54;});
 	}
 
 }
