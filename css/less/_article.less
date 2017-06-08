@@ -131,24 +131,10 @@
     }
     code {
         font-family: @code-font-family;
-        font-size: 90%;
-        color: @secondary-color;
-        padding: 0;
-        padding-top: 0.2em;
-        padding-bottom: 0.2em;
+        padding: 0.2em;
         margin: 0;
         border-radius: 3px;
         background: rgba(27,31,35,0.05);
-    }
-    .readmore {
-        // display: none; // howtodesign?
-        font-size: 1.2rem;
-        margin-top: @gap;
-        a {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 2rem;
-        }
     }
     .tags {
         position: relative;
@@ -229,80 +215,47 @@
         }
     }
 }
-/* Tomorrow Night Eighties Theme */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-.tomorrow-comment, pre .comment, pre .title {
-  color: #999999;
-}
 
-.tomorrow-red, pre .variable, pre .attribute, pre .tag, pre .regexp, pre .ruby .constant, pre .xml .tag .title, pre .xml .pi, pre .xml .doctype, pre .html .doctype, pre .css .id, pre .css .class, pre .css .pseudo {
-  color: #f2777a;
-}
+.highlighttable {
+    width: 100%;
+    margin: 20px 0px;
+    overflow: auto;
+    display: block;
+    font-size: .9rem;
+    font-family: @code-font-family;
+    line-height: 1.5;
+    border: 1px solid #ccc;
 
-.tomorrow-orange, pre .number, pre .preprocessor, pre .built_in, pre .literal, pre .params, pre .constant {
-  color: #f99157;
-}
+    pre {
+        padding: 12px;
+        overflow: auto;
+        font-size: 90%;
+        line-height: 1.45;
+        background-color: transparent;
+        border-radius: 3px;
+        display: block;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        font-family: @code-font-family;
+        word-wrap: normal;
+    }
 
-.tomorrow-yellow, pre .class, pre .ruby .class .title, pre .css .rules .attribute {
-  color: #ffcc66;
-}
+    /*.linenos {
+        width: 32px;
+    }*/
 
-.tomorrow-green, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
-  color: #99cc99;
-}
-
-.tomorrow-aqua, pre .css .hexcolor {
-  color: #66cccc;
-}
-
-.tomorrow-blue, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title {
-  color: #6699cc;
-}
-
-.tomorrow-purple, pre .keyword, pre .javascript .function {
-  color: #cc99cc;
-}
-
-.highlight {
-  width: 100%;
-  margin: 20px 0px;
-  overflow: auto;
-  display: block;
-  background: #2d2d2d;
-  color: #cccccc;
-  font-size: .9rem;
-  font-family:@code-font-family;
-  line-height: 1.5;
-  border: 1px solid #ccc;
-  padding: 10px;
-  .gutter{
-    color: #999999;
-    padding-right: 20px;
-    text-align: right;
-  }
-  .code{
-      vertical-align: top;
-  }
-  &::-webkit-scrollbar {
-    height: 6px;
-    width: 6px;
-  }
-  // /* Track */
-
-&::-webkit-scrollbar-track-piece {
-background: transparent;
-}
-
-
-/* Handle */
-
-&::-webkit-scrollbar-thumb {
-background: #ccc;
-cursor: pointer;
-transition: all .2s ease-out;
-&:hover {
-background: darken(#ccc, 10%);
-}
-}
+    &::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track-piece {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        cursor: pointer;
+        transition: all .2s ease-out;
+        &:hover {
+            background: darken(#ccc, 10%);
+        }
+    }
 }

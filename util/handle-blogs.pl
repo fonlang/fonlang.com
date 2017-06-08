@@ -3,9 +3,20 @@
 use v5.010;
 use strict;
 use warnings;
+
+use FindBin ();
+use File::Temp qw/ :POSIX /;
 use Data::Dumper;
 use Encode;
 use HTML::Strip;
+use HTML::Entities;
+
+sub handle_dir($$);
+sub modify_file($$);
+sub convert_codeblock_to_html($$);
+sub parse_file($$);
+sub quote_value($$);
+sub dump_rows($$);
 
 my $hs = HTML::Strip->new();
 
@@ -24,7 +35,7 @@ $n = dump_rows(\@rows, $outfile);
 print "$n rows dumped to $outfile.\n";
 $hs->eof;
 
-sub handle_dir {
+sub handle_dir ($$) {
     my ($dirname, $rows) = @_;
 
     opendir my $dir, $dirname
@@ -46,6 +57,9 @@ sub handle_dir {
         if (-f $fname && $entity =~ /(.+)\.html$/) {
             my $name = $1;
             #warn $name;
+            
+            modify_file($name, $fname);
+
             my $rec = parse_file($name, $fname);
             push @$rows, $rec;
             next;
@@ -57,7 +71,42 @@ sub handle_dir {
     return scalar @$rows;
 }
 
-sub parse_file {
+sub modify_file ($$) {
+    my ($name, $file) = @_;
+
+    open my $in, "<:encoding(UTF-8)", $file
+        or die "cannot open $file for reading: $!\n";
+
+    my $html = do { local $/; <$in> };
+    close $in;
+
+    $html =~ s{<pre\s*(?:class="(\S+)")><code>([^<]*)</code></pre>}
+              { convert_codeblock_to_html($1, $2) }gsme;
+
+    open my $out, ">:encoding(UTF-8)", $file
+        or die "cannout open $file for writing: $!\n";
+
+    print $out $html;
+    close $out;
+}
+
+sub convert_codeblock_to_html ($$) {
+    my ($lang, $encoded_code) = @_;
+
+    return $encoded_code if ! defined $lang;
+
+    my $code = decode_entities($encoded_code); 
+    my ($fh, $file) = tmpnam();
+    print $fh $code;
+    close $fh;
+
+    my $cmd = "python $FindBin::Bin/code2html.py --infile $file --lang $lang";
+    #warn $cmd;
+    
+    return `$cmd`;
+}
+
+sub parse_file ($$) {
     my ($name, $file) = @_;
 
     open my $in, "<:encoding(UTF-8)", $file
@@ -69,7 +118,7 @@ sub parse_file {
     my %attr;
     if ($html =~ s/ \A <!--- \s* (.*?) --> (?: \n | $ ) //xsm) {
         my $meta = $1;
-        %attr = map { if (/\@(\S+)\s+(.*)/) { ($1, $2) } else { () } }
+        %attr = map { if (/\@(\S+)\s+(\S+)\s*/) { ($1, $2) } else { () } }
                         split /\n/, $meta;
     } else {
         die "$file: meta data not edit.\n";
@@ -185,7 +234,7 @@ sub parse_file {
     return \%attr;
 }
 
-sub dump_rows {
+sub dump_rows ($$) {
     my ($rows, $file) = @_;
 
     open my $out, ">:encoding(UTF-8)", $file
@@ -210,7 +259,7 @@ sub dump_rows {
     return scalar @$rows;
 }
 
-sub quote_value {
+sub quote_value ($$) {
     my ($r, $k) = @_;
 
     my $s = $r->{$k};
