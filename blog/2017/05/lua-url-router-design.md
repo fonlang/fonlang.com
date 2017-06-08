@@ -34,7 +34,8 @@
 ### 路由规则
 
 假设路由支持如下 URL 规则：
-```
+
+```bash
 GET  /hello
 GET  /hello/*
 GET  /hello/:name
@@ -42,6 +43,7 @@ POST /app/:id/comments
 ```
 
 router.lua会把 path 的每个`子目录`抽象成`Json node`，从而构造如下的数据结构：
+
 ```json
 {
   "POST": {
@@ -73,6 +75,7 @@ router.lua会把 path 的每个`子目录`抽象成`Json node`，从而构造如
 ```
 
 lua代码实现：
+
 ```lua
 local function match_one_path(node, path, f)
     for token in path:gmatch("[^/.]+") do
@@ -95,6 +98,7 @@ end
 ## 用户接口
 
 先定义`路由规则`：
+
 ```lua
 function Router:match(method, path, fun)
     if type(method) == 'string' then
@@ -111,6 +115,7 @@ end
 ```
 
 定义示例：
+
 ```lua
 -- GET /hello
 router:match('GET', '/hello', function(params)

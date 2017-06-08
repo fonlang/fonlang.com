@@ -28,7 +28,7 @@
 
 ### inotify API
 
-```
+```c
 #include <sys/inofity.h>
 
 int inotify_init(void);
@@ -46,7 +46,7 @@ int inotify_rm_watch(int fd, uint32_t wd);
 
 ### 读取 inotify 事件
 
-```
+```c
 struct inotify_event {
     int       wd;       // Watch descriptor 监听描述符
 

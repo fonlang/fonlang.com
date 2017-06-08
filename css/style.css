@@ -998,8 +998,7 @@ ul.h-list > li {
   padding-left: 20px;
   padding-right: 20px;
 }
-.l_main .post-wrapper .post img,
-.l_main .post-wrapper .post .highlight {
+.l_main .post-wrapper .post img {
   margin-left: -20px;
   margin-right: -20px;
   width: calc(100% + 2 * 20px);
@@ -1100,8 +1099,7 @@ ul.h-list > li {
 .l_main .post .meta time {
   color: #b5b5b5;
 }
-.l_main .post .full-width,
-.l_main .post .highlight {
+.l_main .post .full-width {
   margin-left: -30px;
   margin-right: -30px;
   padding-left: 30px;
@@ -1135,8 +1133,7 @@ ul.h-list > li {
     padding-left: 20px;
     padding-right: 20px;
   }
-  .l_main .post img,
-  .l_main .post .highlight {
+  .l_main .post img {
     margin-left: -20px;
     margin-right: -20px;
     width: calc(100% + 2 * 20px);
@@ -1457,23 +1454,10 @@ ul.h-list > li {
 }
 .article code {
   font-family: "Roboto Mono", Consolas, monospace, sans-serif;
-  font-size: 90%;
-  color: #4caf50;
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  padding: 0.2em;
   margin: 0;
   border-radius: 3px;
   background: rgba(27, 31, 35, 0.05);
-}
-.article .readmore {
-  font-size: 1.2rem;
-  margin-top: 20px;
-}
-.article .readmore a {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 2rem;
 }
 .article .tags {
   position: relative;
@@ -1549,108 +1533,44 @@ ul.h-list > li {
     line-height: 1.6em;
   }
 }
-/* Tomorrow Night Eighties Theme */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-.tomorrow-comment,
-pre .comment,
-pre .title {
-  color: #999999;
-}
-.tomorrow-red,
-pre .variable,
-pre .attribute,
-pre .tag,
-pre .regexp,
-pre .ruby .constant,
-pre .xml .tag .title,
-pre .xml .pi,
-pre .xml .doctype,
-pre .html .doctype,
-pre .css .id,
-pre .css .class,
-pre .css .pseudo {
-  color: #f2777a;
-}
-.tomorrow-orange,
-pre .number,
-pre .preprocessor,
-pre .built_in,
-pre .literal,
-pre .params,
-pre .constant {
-  color: #f99157;
-}
-.tomorrow-yellow,
-pre .class,
-pre .ruby .class .title,
-pre .css .rules .attribute {
-  color: #ffcc66;
-}
-.tomorrow-green,
-pre .string,
-pre .value,
-pre .inheritance,
-pre .header,
-pre .ruby .symbol,
-pre .xml .cdata {
-  color: #99cc99;
-}
-.tomorrow-aqua,
-pre .css .hexcolor {
-  color: #66cccc;
-}
-.tomorrow-blue,
-pre .function,
-pre .python .decorator,
-pre .python .title,
-pre .ruby .function .title,
-pre .ruby .title .keyword,
-pre .perl .sub,
-pre .javascript .title,
-pre .coffeescript .title {
-  color: #6699cc;
-}
-.tomorrow-purple,
-pre .keyword,
-pre .javascript .function {
-  color: #cc99cc;
-}
-.highlight {
+.highlighttable {
   width: 100%;
   margin: 20px 0px;
   overflow: auto;
   display: block;
-  background: #2d2d2d;
-  color: #cccccc;
   font-size: .9rem;
   font-family: "Roboto Mono", Consolas, monospace, sans-serif;
   line-height: 1.5;
   border: 1px solid #ccc;
-  padding: 10px;
-  /* Handle */
+  /*.linenos {
+        width: 32px;
+    }*/
 }
-.highlight .gutter {
-  color: #999999;
-  padding-right: 20px;
-  text-align: right;
+.highlighttable pre {
+  padding: 12px;
+  overflow: auto;
+  font-size: 90%;
+  line-height: 1.45;
+  background-color: transparent;
+  border-radius: 3px;
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", Consolas, monospace, sans-serif;
+  word-wrap: normal;
 }
-.highlight .code {
-  vertical-align: top;
-}
-.highlight::-webkit-scrollbar {
+.highlighttable::-webkit-scrollbar {
   height: 6px;
   width: 6px;
 }
-.highlight::-webkit-scrollbar-track-piece {
+.highlighttable::-webkit-scrollbar-track-piece {
   background: transparent;
 }
-.highlight::-webkit-scrollbar-thumb {
-  background: #ccc;
+.highlighttable::-webkit-scrollbar-thumb {
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
-.highlight::-webkit-scrollbar-thumb:hover {
+.highlighttable::-webkit-scrollbar-thumb:hover {
   background: #b3b3b3;
 }
 /* Pagination */
