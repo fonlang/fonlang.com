@@ -1,7 +1,6 @@
 <!---
 @title  PostgreSQL数据库及入门
-@category 开发手册 
-@tag PostgreSQL
+@category 开发手册  
 -->
 # PostgreSQL数据库及入门
 
@@ -11,17 +10,17 @@
 ## Ubuntu下安装
 
 ### 安装客户端
-```
+```bash
 sudo apt-get install postgresql-client
 ```
 
 ### 安装服务器
-```
+```bash
 sudo apt-get install postgresql
 ```
 安装过程中，你会看到如下输出（每次安装过程你都应该关注这里输出，它给出了安装的一些关键信息）：
 
-```
+```bash
 Setting up libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
 Setting up ssl-cert (1.0.37) ...
 Setting up postgresql-common (173) ...
@@ -57,7 +56,7 @@ Processing triggers for ureadahead (0.100.0-19) ...
 初次安装后，默认生成一个名为 postgres 数据库及名为 postgres 的数据库用户，同时还生成名为 postgres 的 Linux 系统用户，我们要通过这个 postgres 用户创建其他的用户及数据库。
 
 创建系统用户 fonlang：
-```
+```bash
 ubuntu@localhost:~$ sudo adduser fonlang
 Adding user `fonlang' ...
 Adding new group `fonlang' (1001) ...
@@ -67,7 +66,7 @@ Copying files from `/etc/skel' ...
 ```
 
 切换到 postgres 用户，键入 psql 登录到数据库控制台：
-```
+```bash
 ubuntu@localhost:~$ sudo su - postgres
 postgres@localhost:~$ psql
 psql (9.5.6)
@@ -79,7 +78,7 @@ postgres=#
 当然你也可以 `psql -h127.0.0.1 -Upostgres -p'yourpassword'`， 前提是你要知道 postgres 数据库用户的密码哦！
 
 使用`\passwrd`命令修改 postgres 数据库用户的密码：
-```
+```bash
 postgres=# \password
 Enter new password:
 Enter it again:
@@ -87,7 +86,7 @@ postgres=#
 ```
 
 使用`CREATE USER`命令新建数据库用户：
-```
+```bash
 postgres=# CREATE USER fonlang WITH PASSWORD 'balabalab';
 CREATE ROLE
 ```
@@ -95,13 +94,13 @@ CREATE ROLE
 ### 允许远程访问
 
 打开配置文件 `/etc/postgresql/9.5/main/postgresql.conf`，修改 `listen_addresses`：
-```
+```bash
 vi /etc/postgresql/9.5/main/postgresql.conf
 listen_addresses = "*"
 ```
 
 打开 `/etc/postgresql/9.3/main/pg_hba.conf`, 添加下面行以保证远程连接的任何用户可访问：
-```
+```bash
 host all all 192.169.3.0/24  md5
 
 ```
@@ -109,20 +108,20 @@ host all all 192.169.3.0/24  md5
 ### 创建数据库
 
 使用 `CREATE DATABASE` 命令新建数据库：
-```
+```bash
 postgres=# CREATE DATABASE fonlang_com OWNER fonlang;
 CREATE DATABASE
 postgres=#
 ```
 
 赋权限给指定用户（一定要所有权限都赋予用户，否则用户只能登录控制台，但没有任何数据库的权限）：
-```
+```bash
 postgres=# GRANT ALL PRIVILEGES ON DATABASE fonlang_com to fonlang;
 GRANT
 ```
 
 退出
-```
+```bash
 postgres=# \q
 
 ```
@@ -130,13 +129,13 @@ postgres=# \q
 ### 登录数据库
 
 ubuntu系统用户存在，但数据库用户不存在：
-```
+```bash
 ubuntu@localhost:~$ psql
 psql: FATAL:  role "ubuntu" does not exist
 ```
 
 fonlang登录：
-```
+```bash
 psql -U fonlang -d fonlang_com -h 127.0.0.1 -p 5432
 ```
 

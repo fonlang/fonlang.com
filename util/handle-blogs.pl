@@ -118,7 +118,7 @@ sub parse_file ($$) {
     my %attr;
     if ($html =~ s/ \A <!--- \s* (.*?) --> (?: \n | $ ) //xsm) {
         my $meta = $1;
-        %attr = map { if (/\@(\S+)\s+(.*)/) { ($1, $2) } else { () } }
+        %attr = map { if (/\@(\S+)\s+(\S+)\s*/) { ($1, $2) } else { () } }
                         split /\n/, $meta;
     } else {
         die "$file: meta data not edit.\n";
