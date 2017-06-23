@@ -1,8 +1,8 @@
 <!---
-@title Perl 关于 Template::Toolkit 
+@title Template::Toolkit About 页面译文
 @category 开发手册
 -->
-# Perl 关于 Template::Toolkit
+# Template::Toolkit About 页面译文
 
 [http://www.template-toolkit.org/about.html](http://www.template-toolkit.org/about.html)的非官方译文。
 
